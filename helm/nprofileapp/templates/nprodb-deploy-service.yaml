@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.vprodb.name }} #vprodb
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.vprodb.name }} #vprodb
+  replicas: {{ .Values.replicaCount }} #1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.vprodb.name }} #vprodb
+    spec:
+      containers:
+      - name: {{ .Values.vprodb.name }} #vprodb
+        image: {{ .Values.vprodb.container.image }} #ishfak00/nproweb:mysql_8.0.33_vprodb
+        volumeMounts:
+          - mountPath: {{ .Values.vprodb.volume.mountPath }} #/var/lib/mysql
+            name: {{ .Values.vprodb.volume.name }} #vpro-db-vol
+        ports: 
+          - name: vprodb-port
+            containerPort: {{ .Values.vprodb.container.port }} #3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: nproapp-secret
+                key: db-pass
+      
+      volumes: 
+        - name:  {{ .Values.vprodb.volume.name }} #vpro-db-vol
+          emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.vprodb.name }} #vprodb
+
+spec:
+  type: {{ .Values.vprodb.service.type }} #ClusterIP
+  selector:
+    app: {{ .Values.vprodb.name }} #vprodb
+  ports:
+  - port: {{ .Values.vprodb.service.port }} #3306
+    targetPort: {{ .Values.vprodb.container.port }} #vprodb-port
+    protocol: TCP
+
+

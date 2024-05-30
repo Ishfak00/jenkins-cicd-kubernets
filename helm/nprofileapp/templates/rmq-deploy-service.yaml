@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.vpromq01.name }} #vpromq01
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.vpromq01.name }} #vpromq01
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.vpromq01.name }} #vpromq01
+    spec:
+      containers:
+      - name: {{ .Values.vpromq01.name }} #vpromq01
+        image: {{ .Values.vpromq01.container.image }} #rabbitmq
+        ports:
+        - name: vpromq01-port
+          containerPort: {{ .Values.vpromq01.container.port }} #15672
+        env:
+        - name: RABBITMQ_DEFAUT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: nproapp-secret
+              key: rmq-pass
+        - name: RABBITMQ_DEFAUT_USER
+          value: "guest"
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.vpromq01.name }} #vpromq01
+spec:
+  type: {{ .Values.vpromq01.service.type }} #ClusterIP
+  selector:
+    app: {{ .Values.vpromq01.name }} #vpromq01
+  ports:
+  - port: {{ .Values.vpromq01.service.port }} #15672
+    targetPort: {{ .Values.vpromq01.container.port }} #vpromq01-port
+    protocol: TCP
+

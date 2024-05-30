@@ -1,0 +1,50 @@
+# Default values for nprofile-charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+vproapp:
+  name: vproapp
+  container: 
+    image: ishfak00/nproweb:tomcat_9.0-jre11_vproapp
+    port: 8080
+  service:
+    type: LoadBalancer
+    port: 80
+
+vprodb:
+  name: vprodb
+  container: 
+    image: ishfak00/nproweb:mysql_8.0.33_vprodb
+    port: 3306
+  service:
+    type: ClusterIP
+    port: 3306
+  volume:
+    name: vpro-db-vol
+    mountPath: /var/lib/mysql
+
+vpromc:
+  name: vpromc
+  container: 
+    image: memcached
+    port: 11211
+  service:
+    name: vprocache01
+    type: ClusterIP
+    port: 11211
+
+
+vpromq01:
+  name: vpromq01
+  container: 
+    image: rabbitmq
+    port: 15672
+  service:
+    name: vpromq01
+    type: ClusterIP
+    port: 15672
+
+
+

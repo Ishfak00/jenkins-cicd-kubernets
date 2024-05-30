@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  labels:
+    name: myingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: nprofileapp.ishfak.xyz
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.vproapp.name }} #vproapp
+            port: 
+              number: {{ .Values.vproapp.container.port }} #8080

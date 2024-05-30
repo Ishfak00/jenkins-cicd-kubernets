@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.vpromc.name }} #vpromc
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.vpromc.name }} #vpromc
+  replicas: 1    
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.vpromc.name }} #vpromc
+    spec:
+      containers:
+      - name: {{ .Values.vpromc.name }} #vpromc
+        image: {{ .Values.vpromc.container.image }} #memcached
+        ports:
+          - name: vpromc-port 
+            containerPort: {{ .Values.vpromc.container.port }} #11211
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.vpromc.service.name }} #vprocache01
+spec:
+  type: {{ .Values.vpromc.service.type }}
+  selector:
+    app: {{ .Values.vpromc.name }} #vpromc
+  ports:
+  - port: {{ .Values.vpromc.service.port }} #11211
+    targetPort: {{ .Values.vpromc.container.port }} #vpromc-port
+    protocol: TCP
