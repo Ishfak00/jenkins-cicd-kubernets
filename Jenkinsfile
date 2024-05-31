@@ -1,14 +1,15 @@
 pipeline {
 
     agent { label 'JENKINS_AGENT' }
-/*
+
 	tools {
-        maven "maven3"
+        maven "3.9.7"
     }
-*/
+
     environment {
         registry = "ishfak00/nprofile-project"
         registryCredential = 'dockerhub'
+        JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64'
     }
 
     stages {
