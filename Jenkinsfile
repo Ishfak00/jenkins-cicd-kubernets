@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { label 'JENKINS_AGENT' }
+    agent any
 
 	tools {
         maven "3.9.7"
@@ -16,7 +16,7 @@ pipeline {
 
         stage('BUILD') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn clean install -U'
             }
             post {
                 success {
