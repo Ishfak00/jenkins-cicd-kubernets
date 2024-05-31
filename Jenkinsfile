@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { label 'JENKINS_AGENT' }
+    agent any
 
     tools {
         maven "3.9.7"
