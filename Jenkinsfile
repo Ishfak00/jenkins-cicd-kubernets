@@ -1,11 +1,11 @@
 pipeline {
 
     agent any
-
+/* 
 	tools {
         maven "3.9.7"
     }
-
+*/
     environment {
         registry = "ishfak00/nprofile-project"
         registryCredential = 'dockerhub'
