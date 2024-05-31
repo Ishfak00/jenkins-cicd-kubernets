@@ -2,7 +2,7 @@ pipeline {
 
     agent { label 'JENKINS_AGENT' }
 
-	tools {
+    tools {
         maven "3.9.7"
     }
 
