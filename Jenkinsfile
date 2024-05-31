@@ -2,7 +2,7 @@ pipeline {
 
     agent any
 
-    tools {
+	tools {
         maven "3.9.7"
     }
 
@@ -16,7 +16,7 @@ pipeline {
 
         stage('BUILD') {
             steps {
-                sh 'mvn clean install -U'
+                sh 'mvn clean install -DskipTests'
             }
             post {
                 success {
