@@ -3,7 +3,7 @@ pipeline {
     agent any
 
 	tools {
-        maven "3.9.5"
+        maven "3.6.3"
     }
 
     environment {
@@ -110,7 +110,7 @@ pipeline {
                 sh '''
                     gcloud version
                     gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
-                    gcloud container clusters get-credentials jenkins-cicd-gke-cluster-1 --zone us-east1-d --project primal-gear-411416
+                    gcloud container clusters get-credentials jenkins-cicd-gke-cluster-1 --zone us-east1-c --project primal-gear-411416
 			        kubectl cluster-info
 			        kubectl get nodes -o wide
                 '''
