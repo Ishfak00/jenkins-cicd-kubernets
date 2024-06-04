@@ -114,7 +114,7 @@ pipeline {
                 sh '''
                     gcloud version
                     gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
-                    gcloud container clusters get-credentials jenkins-cicd-gke-cluster-1 --zone us-east1-c --project primal-gear-411416
+                    gcloud container clusters get-credentials jenkins-cicd-gke-cluster-1 --zone us-central1-c --project primal-gear-411416
 			        kubectl cluster-info
 			        kubectl get nodes -o wide
                 '''
