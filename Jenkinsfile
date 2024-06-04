@@ -126,7 +126,7 @@ pipeline {
         stage('Kubernetes Deploy') {
 	        agent { label 'JENKINS_AGENT' }
                 steps {
-                    sh "helm upgrade --install -f nprofileapp-values.yaml nprofileapp-release helm/nproileapp --set vproapp.container.image=${registry}:V${BUILD_NUMBER} "
+                    sh "helm upgrade --install -f ./helm/nprofileapp-values.yaml nprofileapp-release ./helm/nproileapp --set vproapp.container.image=${registry}:V${BUILD_NUMBER} "
             }
         }
 
