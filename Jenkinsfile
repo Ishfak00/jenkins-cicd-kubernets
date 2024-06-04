@@ -9,7 +9,7 @@ pipeline {
     environment {
         registry = "ishfak00/nprofile-project"
         registryCredential = 'dockerhub'
-        JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64' 
+        JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64' 
           /* JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64'*/
     }
 
